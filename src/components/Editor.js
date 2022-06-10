@@ -14,9 +14,10 @@ export default function Editor(props) {
     language,
     displayName,
     value,
-    onChange
+    onChange,
+    isOpen
   } = props
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(isOpen)
 
   function handleChange(editor, data, value) {
     onChange(value)

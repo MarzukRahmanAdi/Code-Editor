@@ -21,12 +21,14 @@ body {
   justify-content: center; */
 
   position: absolute;
-  right: 3%;
-  bottom: 3%;
+  right: 2%;
+  bottom: 1%;
   display: flex;
   align-items: center;
 }
-.footer > img{
+
+.footerimg{
   margin: 5px;
-  width: 100px;
+  /* opacity: 80%; */
+  width: 150px;
 }

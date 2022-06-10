@@ -7,7 +7,8 @@ function App() {
   const [css, setCss] = useLocalStorage('css', '')
   const [js, setJs] = useLocalStorage('js', '')
   const [srcDoc, setSrcDoc] = useState('')
-
+  const [isOpen, setIsOpen] = useState()
+  const [ready, setReady] = useState()
   useEffect(() => {
     const timeout = setTimeout(() => {
       setSrcDoc(`
@@ -22,11 +23,25 @@ function App() {
     return () => clearTimeout(timeout)
   }, [html, css, js])
   useEffect(() => {
-    // if (html === "") {
-    setHtml(`<h1>You will see output here <h1>
-    <h1>If don't know web dev then, click here to start your journey<h1>
-    <a href="https://ionicbyte.com" target="_blank">https://ionicbyte.com</a>  
-    `)
+    const firstTime = localStorage.getItem("many")
+    if(!firstTime){
+      localStorage.setItem("many" , true)
+    }
+    // console.log(window.innerWidth)
+
+    if(window.innerWidth < 801){
+      console.log(window.innerWidth)
+      setIsOpen(false)
+      setReady(true)
+      console.log(isOpen);
+    } else {
+      setIsOpen(true)
+      setReady(true)
+      console.log(isOpen);
+
+    }
+    if (!firstTime) {
+    setHtml(`<h1>You will see output here <h1>`)
     setCss(`@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
      
 body{
@@ -36,8 +51,9 @@ body{
 }
 
       `)
-    // }
+    }
   }, [])
+
   return (
     <>
       <div className="panel top_panel">
@@ -46,19 +62,22 @@ body{
           displayName="HTML"
           value={html}
           onChange={setHtml}
+          isOpen={true}
         />
-        <Editor
+        {ready && <Editor
           language="css"
           displayName="CSS"
           value={css}
           onChange={setCss}
-        />
-        <Editor
+          isOpen={isOpen}
+        />}
+        {ready && <Editor
           language="javascript"
           displayName="JS"
           value={js}
           onChange={setJs}
-        />
+          isOpen={isOpen}
+        />}
       </div>
       <div className="panel">
         <iframe
@@ -70,8 +89,8 @@ body{
           height="100%"
         />
       </div>
-      <p className="footer"> <img src="/logo3.png" alt="" /></p>
-    </>
+      <p className="footer"> <a href='https://iamadi.xyz/' target="_blank" rel="noopener noreferrer" > <img className='footerimg' src="/adi.png" alt="" /> </a> </p>
+      </>
   )
 }
 
